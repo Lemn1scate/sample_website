@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RH Point Engineering Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --orange: #F5A100;
+      --dark-orange: #c47f00;
+      --charcoal: #2B2D35;
+      --dark: #1A1B20;
+      --cream: #F5F0E8;
+      --text-light: #c8c3b8;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 4rem;
+      background: rgba(26,27,32,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(245,161,0,0.15);
+      transition: padding 0.3s;
+    }
+    nav.scrolled { padding: 0.6rem 4rem; }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.75rem;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 44px; height: 44px;
+      background: var(--orange);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 900; color: var(--dark);
+    }
+    .nav-logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.08em;
+      color: var(--white); line-height: 1;
+    }
+    .nav-logo-text span { color: var(--orange); }
+    .nav-logo-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      color: var(--text-light); text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-light);
+      text-decoration: none; transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--orange);
+      transform: scaleX(0); transition: transform 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      background: var(--orange); color: var(--dark) !important;
+      padding: 0.5rem 1.25rem; font-weight: 700;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--dark-orange); color: var(--dark) !important; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 5px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); transition: 0.3s;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      background: var(--dark);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      position: relative; overflow: hidden;
+      padding: 6rem 4rem 4rem;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        radial-gradient(ellipse 55% 70% at 25% 55%, rgba(26,27,32,0.82) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 80% 50%, rgba(245,161,0,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-hex-grid {
+      position: absolute; right: -60px; top: 50%;
+      transform: translateY(-50%);
+      width: 620px; height: 620px;
+      opacity: 0.08;
+    }
+
+    .hero-content { position: relative; z-index: 3; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--orange);
+      border: 1px solid rgba(245,161,0,0.35);
+      padding: 0.3rem 0.8rem; margin-bottom: 1.5rem;
+      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--orange); display: block;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      line-height: 0.92; letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .accent { color: var(--orange); display: block; }
+
+    .hero-desc {
+      font-size: 1.05rem; line-height: 1.7;
+      color: var(--text-light); max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--orange); color: var(--dark);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 0.9rem 2rem;
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #ffb81c; transform: translateY(-2px); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid rgba(245,161,0,0.5); color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 0.9rem 2rem;
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--orange); background: rgba(245,161,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative; z-index: 3;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 1.5rem;
+    }
+
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      width: 100%;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(245,161,0,0.15);
+      padding: 1.5rem; position: relative;
+      overflow: hidden;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    }
+    .stat-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--orange);
+    }
+    .stat-card .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem; color: var(--orange); line-height: 1;
+    }
+    .stat-card .label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-light);
+      margin-top: 0.3rem;
+    }
+
+    .hero-badge {
+      background: var(--orange);
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      padding: 0.8rem 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      width: 100%;
+    }
+    .hero-badge-icon { font-size: 1.5rem; }
+    .hero-badge-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--dark);
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section { padding: 5rem 4rem; }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      letter-spacing: 0.04em; line-height: 1;
+    }
+    .section-title .accent { color: var(--orange); }
+    .section-desc {
+      color: var(--text-light); font-size: 1rem; line-height: 1.7;
+      max-width: 560px; margin-top: 1rem;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--charcoal);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+    .about-img-frame {
+      background: linear-gradient(135deg, rgba(245,161,0,0.15) 0%, rgba(245,161,0,0.03) 100%);
+      border: 1px solid rgba(245,161,0,0.25);
+      padding: 2rem; position: relative;
+    }
+    .about-img-frame::before {
+      content: ''; position: absolute;
+      top: -1px; left: 2rem; right: 2rem; height: 3px;
+      background: var(--orange);
+    }
+    .vision-mission { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem; }
+    .vm-block {
+      border-left: 3px solid var(--orange);
+      padding-left: 1.25rem;
+    }
+    .vm-block h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 0.4rem;
+    }
+    .vm-block p { font-size: 0.9rem; color: var(--text-light); line-height: 1.65; }
+
+    /* ─── SERVICES ─── */
+    #services {
+      background: var(--dark);
+    }
+    .services-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5px;
+      background: rgba(245,161,0,0.1);
+      border: 1px solid rgba(245,161,0,0.1);
+    }
+
+    .service-card {
+      background: var(--dark);
+      padding: 2.5rem 2rem;
+      position: relative; overflow: hidden;
+      cursor: default;
+      transition: background 0.3s;
+    }
+    .service-card:hover { background: rgba(245,161,0,0.05); }
+
+    .service-card .s-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem; color: rgba(245,161,0,0.12);
+      position: absolute; top: 1rem; right: 1.5rem;
+      line-height: 1;
+    }
+    .service-icon {
+      width: 52px; height: 52px;
+      background: rgba(245,161,0,0.12);
+      border: 1px solid rgba(245,161,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: background 0.3s;
+    }
+    .service-card:hover .service-icon { background: rgba(245,161,0,0.22); }
+    .service-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 0.75rem; color: var(--white);
+    }
+    .service-card p { font-size: 0.875rem; color: var(--text-light); line-height: 1.65; }
+    .service-card ul {
+      list-style: none; margin-top: 0.75rem;
+    }
+    .service-card ul li {
+      font-size: 0.85rem; color: var(--text-light);
+      padding: 0.25rem 0; padding-left: 1rem; position: relative;
+    }
+    .service-card ul li::before {
+      content: '▸'; position: absolute; left: 0; color: var(--orange);
+    }
+
+    .service-bottom-bar {
+      height: 3px; background: var(--orange);
+      position: absolute; bottom: 0; left: 0;
+      width: 0; transition: width 0.4s ease;
+    }
+    .service-card:hover .service-bottom-bar { width: 100%; }
+
+    /* ─── CLIENTS ─── */
+    #clients {
+      background: var(--charcoal);
+      text-align: center;
+    }
+    .clients-scroll {
+      display: flex; gap: 2rem;
+      flex-wrap: wrap; justify-content: center;
+      margin-top: 3rem;
+    }
+    .client-pill {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(245,161,0,0.2);
+      padding: 0.9rem 2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-light);
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .client-pill:hover {
+      border-color: var(--orange); color: var(--white);
+      background: rgba(245,161,0,0.08);
+    }
+
+    /* ─── CREDENTIALS / LEGALITIES ─── */
+    #credentials {
+      background: var(--dark);
+    }
+    .creds-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .cred-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(245,161,0,0.15);
+      padding: 1.75rem;
+      position: relative; overflow: hidden;
+    }
+    .cred-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; bottom: 0; width: 3px;
+      background: var(--orange);
+    }
+    .cred-card h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .cred-card p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
+    .cred-badge {
+      display: inline-block;
+      background: rgba(245,161,0,0.15); color: var(--orange);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 0.2rem 0.6rem;
+      margin-top: 0.75rem;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--charcoal);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+    .contact-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .contact-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(245,161,0,0.12);
+      border: 1px solid rgba(245,161,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    }
+    .contact-text { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; }
+    .fb-btn {
+      display: flex; align-items: flex-start; gap: 1rem;
+      text-decoration: none; color: inherit;
+      padding: 0.65rem 1.1rem 0.65rem 0.65rem;
+      border: 1px solid rgba(24,119,242,0.35);
+      background: rgba(24,119,242,0.07);
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .fb-btn:hover {
+      background: rgba(24,119,242,0.18);
+      border-color: rgba(24,119,242,0.7);
+      transform: translateY(-2px);
+    }
+    .fb-icon {
+      background: #1877F2 !important;
+      border-color: #1877F2 !important;
+    }
+      font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .contact-form { margin-top: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .form-group label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-light);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(245,161,0,0.2);
+      color: var(--white);
+      padding: 0.75rem 1rem; font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      width: 100%;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(200,195,184,0.4); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--orange); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select option { background: var(--dark); }
+
+    .form-submit {
+      width: 100%; padding: 1rem; font-size: 1rem;
+      cursor: pointer; border: none;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(245,161,0,0.15);
+      padding: 2.5rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy {
+      font-size: 0.85rem; color: var(--text-light);
+    }
+    .footer-copy span { color: var(--orange); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-light);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── MOBILE NAV MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(26,27,32,0.98);
+      z-index: 99; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem; letter-spacing: 0.08em;
+      color: var(--white); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      font-size: 2rem; color: var(--orange); cursor: pointer;
+      background: none; border: none;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      nav.scrolled { padding: 0.6rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+      .hero-visual { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #about, #contact { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ─── HONEYCOMB CANVAS ─── */
+    #honeycomb-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <img src="data:image/jpeg;base64,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CSl5FKQJJsHxMTnORX8/wB+SEDzmLYkUZV1zZKV8pRgcxZ2lUoJBZ6FVJTXi6bGdfEpk2LRD5hDtDPpysrM2dxpTGMIGbEekhStSAnazrCTQ80CUTJug3CISgO1naFVUiqirMfBkhcquzxZ5TqCfd02Fk1RrFWdlKiQkEYCkQhqLO4U8XkpB7WewUEGKazJkHlJApEVR3DPFj+tqRqVWfBnPxKai7T6OFWDEEQZeNjDFESxJSpdWbC1wZCiqIMYRTROR35JjqhrLQjVmasxaBUSM0WhGoWNSpGlnjW1SiNRaJUSRIxaBWojSSwwjESrkxrNc9LQjULGiTFoFRI0nirUTrMWgFqA1liIznpasxgwBMQJaGhGoWNCkYZo1NgqI1GDUqRjnjW1ZJ115Hfz/fz/AH8/38/38/38/wB/P9/P9/P9/P8Afz/fz/fz/fz/AHtM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73NM73Na3//aAAgBAQIBPyH17JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdD1/JzdDzzopMAS24F8U3PHI9xvoXTJxoS6g3YFRJ3KFlSUhR+DEYn2YNrrR2ghLI6Rw87k5uh523+A6LRNs0ySSJv2UK7CtgSSaJKZTGjFkG3ZSbExUllMkMS0ygicJFwtUECRpb/CExuatJxcebt5WxDASGSedyc3Q87iC4sRImbgnBOoVPeqwrHmLAwgguTXBi4yZS4MdxcpJM0tg5LjvUUEckhFZiCs9InaIksl0TchrSsgpy/HjYKIMmbr53JzdDzUiu0exfQJ1bFW/MkJZYuKLE7XxRWgiWRISOdcauAYcJQl44zfFWsUXbRTGqiApcq6H0J1GQ8cM5KhKeZS6FyQQhAtet9KEFKzE0+AzJYVmDQcTGL9wTMwCLCUuI8JRdo9i+gTq2KCHoRCyxcVMTM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" 
+         alt="RH Point Engineering Services" 
+         class="nav-logo-img"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#credentials">Credentials</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#clients" onclick="toggleMenu()">Clients</a>
+  <a href="#credentials" onclick="toggleMenu()">Credentials</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <canvas id="honeycomb-canvas"></canvas>
+
+  <div class="hero-content reveal">
+    <div class="hero-tag">Cabuyao, Laguna · Philippines</div>
+    <h1 class="hero-title">
+      Trusted<br>
+      <span class="accent">Engineering</span><br>
+      Solutions
+    </h1>
+    <p class="hero-desc">
+      Delivering high-quality, reliable, and cost-effective engineering services for residential and commercial clients. From AC systems to CCTV to flooring — we've got every project covered.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">▸ Explore Services</a>
+      <a href="#contact" class="btn-secondary">Get a Quote</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-stats reveal">
+      <div class="stat-card">
+        <div class="num">100%</div>
+        <div class="label">Licensed &amp; Certified</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">7+</div>
+        <div class="label">Service Categories</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">B2C</div>
+        <div class="label">Residential &amp; Commercial</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">2025</div>
+        <div class="label">HVAC Certified</div>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-icon">🛡️</div>
+      <div class="hero-badge-text">DTI Registered · BIR Compliant · Mayor's Permit Holder</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-img-frame">
+      <div class="vision-mission">
+        <div class="vm-block">
+          <h4>Our Vision</h4>
+          <p>To earn a leading reputation in the engineering services industry by consistently delivering high-value services with honesty, integrity, commitment, and professionalism in accordance with existing engineering standards.</p>
+        </div>
+        <div class="vm-block">
+          <h4>Our Mission</h4>
+          <p>To deliver efficient, reliable, and high-quality engineering services that consistently meet and exceed client expectations — maintaining the highest safety standards while applying sound engineering principles and practical solutions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="section-label">About the Company</div>
+    <h2 class="section-title">Built on <span class="accent">Trust</span> &amp;<br>Expertise</h2>
+    <p class="section-desc">
+      RH Point Engineering Services is a trusted solutions provider based in Cabuyao, Laguna. We specialize in delivering high-quality products and services that meet the growing demands of both residential and commercial clients.
+    </p>
+    <p class="section-desc" style="margin-top: 1rem;">
+      With a team of skilled professionals and a strong commitment to customer satisfaction, we ensure reliable, efficient, and cost-effective services tailored to every client's needs.
+    </p>
+    <a href="#contact" class="btn-primary" style="margin-top: 2rem; display: inline-flex;">▸ Work With Us</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our <span class="accent">Services</span></h2>
+    </div>
+    <p class="section-desc">Comprehensive engineering solutions across multiple disciplines — all under one roof.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="s-num">01</div>
+      <div class="service-icon">❄️</div>
+      <h3>Airconditioning Solutions</h3>
+      <ul>
+        <li>Supply &amp; Installation</li>
+        <li>AC Repair</li>
+        <li>Preventive Maintenance &amp; Cleaning</li>
+        <li>Filter Replacement</li>
+      </ul>
+      <div class="service-bottom-bar"></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="s-num">02</div>
+      <div class="service-icon">📷</div>
+      <h3>CCTV &amp; Security Systems</h3>
+      <ul>
+        <li>Supply &amp; Installation of CCTV</li>
+        <li>Troubleshooting &amp; Repair</li>
+        <li>Preventive &amp; Corrective Maintenance</li>
+      </ul>
+      <div class="service-bottom-bar"></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="s-num">03</div>
+      <div class="service-icon">🔩</div>
+      <h3>Metal Fabrication Works</h3>
+      <ul>
+        <li>Customized Fabrication</li>
+        <li>Durable Precision-Built Works</li>
+      </ul>
+      <div class="service-bottom-bar"></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="s-num">04</div>
+      <div class="service-icon">🪟</div>
+      <h3>Window Coverings</h3>
+      <ul>
+        <li>Supply &amp; Installation of Blinds</li>
+        <li>Multiple Designs &amp; Materials</li>
+      </ul>
+      <div class="service-bottom-bar"></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="s-num">05</div>
+      <div class="service-icon">🏗️</div>
+      <h3>Flooring Solutions</h3>
+      <ul>
+        <li>SPC Flooring Supply &amp; Installation</li>
+        <li>Vinyl Flooring Supply &amp; Installation</li>
+      </ul>
+      <div class="service-bottom-bar"></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="s-num">06</div>
+      <div class="service-icon">🧹</div>
+      <h3>Cleaning of Ceiling Membranes</h3>
+      <p>Professional cleaning services for ceiling membranes in commercial and industrial spaces.</p>
+      <div class="service-bottom-bar"></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="s-num">07</div>
+      <div class="service-icon">💻</div>
+      <h3>Computer Hardware &amp; Software</h3>
+      <ul>
+        <li>Supply &amp; Installation of IT Equipment</li>
+        <li>Hardware Physical Care</li>
+        <li>Software System Maintenance</li>
+      </ul>
+      <div class="service-bottom-bar"></div>
+    </div>
+    <div class="service-card reveal" style="background: rgba(245,161,0,0.06); border: 1px solid rgba(245,161,0,0.2);">
+      <div class="s-num" style="color: rgba(245,161,0,0.3);">+</div>
+      <div class="service-icon" style="background: rgba(245,161,0,0.2);">📋</div>
+      <h3>Need Something Else?</h3>
+      <p>We take on custom engineering challenges. Reach out and let's discuss your project requirements.</p>
+      <a href="#contact" class="btn-primary" style="margin-top: 1.5rem; font-size: 0.8rem; padding: 0.6rem 1.2rem;">▸ Inquire Now</a>
+      <div class="service-bottom-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="reveal">
+    <div class="section-label" style="text-align:center">Who We Serve</div>
+    <h2 class="section-title" style="text-align:center">Our <span class="accent">Clients</span></h2>
+    <p class="section-desc" style="margin: 1rem auto 0; text-align:center">
+      Trusted by businesses across Laguna and Metro Manila.
+    </p>
+  </div>
+  <div class="clients-scroll reveal">
+    <div class="client-pill">CLC</div>
+    <div class="client-pill">Manila Bambi Foods Company</div>
+    <div class="client-pill">Teakwood</div>
+    <div class="client-pill">Fla-bell Trucking Services</div>
+    <div class="client-pill">Residential Clients</div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials">
+  <div class="reveal">
+    <div class="section-label">Legalities &amp; Credentials</div>
+    <h2 class="section-title">Fully <span class="accent">Licensed</span> &amp; Compliant</h2>
+    <p class="section-desc">RH Point Engineering Services holds all required legal documents, licenses, permits, and certifications necessary for its operation.</p>
+  </div>
+  <div class="creds-grid">
+    <div class="cred-card reveal">
+      <h4>DTI Registration</h4>
+      <p>Business Name Registration Certificate — Business Name No. 6470198, registered under Raymundo San Jose Espiridion Jr.</p>
+      <span class="cred-badge">Verified · DTI</span>
+    </div>
+    <div class="cred-card reveal">
+      <h4>BIR Certificate of Registration</h4>
+      <p>Registered with the Bureau of Internal Revenue, Revenue Region No. 9B — Cabuyao, Laguna. Engineering Activities listed as primary line of business.</p>
+      <span class="cred-badge">BIR Registered</span>
+    </div>
+    <div class="cred-card reveal">
+      <h4>City Environmental Clearance</h4>
+      <p>CEC-OB-400126-0812 issued by the City of Cabuyao, Province of Laguna, Office of the City Environment and Natural Resources Officer. Issued January 13, 2026.</p>
+      <span class="cred-badge">Cabuyao CENRO · 2026</span>
+    </div>
+    <div class="cred-card reveal">
+      <h4>Sanitary Permit</h4>
+      <p>Permit No. 432 issued by the City Health Office-II, City of Cabuyao, Laguna. Valid through December 31, 2026.</p>
+      <span class="cred-badge">DOH · City Health Office</span>
+    </div>
+    <div class="cred-card reveal">
+      <h4>Barangay Clearance</h4>
+      <p>Issued by Barangay Banay-Banay, City of Cabuyao, Province of Laguna. Business registered as Services Engineering Services.</p>
+      <span class="cred-badge">Barangay · 2026</span>
+    </div>
+    <div class="cred-card reveal">
+      <h4>Mayor's Business Permit</h4>
+      <p>Permit No. 2026-00528 issued by the City of Cabuyao Business Permit &amp; Licensing Office. Sole Proprietorship — approved by the City Mayor.</p>
+      <span class="cred-badge">Mayor's Permit · 2026</span>
+    </div>
+    <div class="cred-card reveal">
+      <h4>HVAC Training Certificate</h4>
+      <p>Certificate of Completion for Basic Refrigeration and Airconditioning Training — Amat Aircondition Office, Antipolo City, September 6–7, 2025.</p>
+      <span class="cred-badge">HVAC Training Center</span>
+    </div>
+    <div class="cred-card reveal">
+      <h4>Magic-Aire Technical Seminar</h4>
+      <p>Certificate of Participation for attending the Magic-Aire Technical Seminar on Airconditioning at Philconstruct-HVAC/R 2025, November 4, 2025.</p>
+      <span class="cred-badge">Magic-Aire Industries · 2025</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">Reach Out</div>
+    <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
+    <p class="section-desc">Ready to start a project? Have questions about our services? We'd love to hear from you.</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-text">
+          <strong>Address</strong>
+          Katapatan Homes, Banay-Banay, City of Cabuyao, Laguna
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-text">
+          <strong>Phone</strong>
+          +63 991-313-1495<br>+63 929-217-1060
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-text">
+          <strong>Email</strong>
+          endralynfe23.rhpoint@gmail.com
+        </div>
+      </div>
+      <div class="contact-item">
+        <a href="https://web.facebook.com/profile.php?id=61581404458244&_rdc=1&_rdr#"
+           target="_blank" rel="noopener noreferrer"
+           class="fb-btn">
+          <div class="contact-icon fb-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22">
+              <path fill="#ffffff" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+            </svg>
+          </div>
+          <div class="contact-text">
+            <strong>Facebook</strong>
+            RH Point Engineering Services
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form reveal">
+    <div class="section-label" style="margin-bottom: 1.5rem;">Send a Message</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name *</label>
+        <input type="text" id="f-firstname" placeholder="Juan"/>
+      </div>
+      <div class="form-group">
+        <label>Last Name *</label>
+        <input type="text" id="f-lastname" placeholder="dela Cruz"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email Address *</label>
+      <input type="email" id="f-email" placeholder="juan@example.com"/>
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" id="f-phone" placeholder="+63 9XX XXX XXXX"/>
+    </div>
+    <div class="form-group">
+      <label>Service Needed *</label>
+      <select id="f-service">
+        <option value="" disabled selected>Select a service…</option>
+        <option>Airconditioning Solutions</option>
+        <option>CCTV &amp; Security Systems</option>
+        <option>Metal Fabrication Works</option>
+        <option>Window Coverings</option>
+        <option>Flooring Solutions</option>
+        <option>Ceiling Membrane Cleaning</option>
+        <option>Computer Hardware &amp; Software</option>
+        <option>Other / General Inquiry</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message *</label>
+      <textarea id="f-message" placeholder="Tell us about your project or inquiry…"></textarea>
+    </div>
+    <button class="btn-primary form-submit" onclick="submitForm(this)">▸ Send Message</button>
+    <div id="form-msg" style="margin-top:1rem; font-size:0.9rem; color: var(--orange); display:none;">
+      ✔ Message sent! We'll get back to you shortly.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">
+    © 2026 <span>RH Point Engineering Services</span>. All rights reserved.<br>
+    <small style="font-size: 0.75rem;">Cabuyao, Laguna · DTI Reg. No. 6470198</small>
+  </div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#credentials">Credentials</a>
+    <a href="#contact">Contact</a>
+    <a href="admin.html" style="color: var(--orange);">Admin Portal</a>
+  </div>
+</footer>
+
+<script src="db.js"></script>
+
+<script>
+  // ─── NAV SCROLL ───
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ─── MOBILE MENU ───
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // ─── SCROLL REVEAL ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.05) + 's';
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ─── FORM ───
+  function submitForm(btn) {
+    const firstname = document.getElementById('f-firstname').value.trim();
+    const lastname  = document.getElementById('f-lastname').value.trim();
+    const email     = document.getElementById('f-email').value.trim();
+    const phone     = document.getElementById('f-phone').value.trim();
+    const service   = document.getElementById('f-service').value;
+    const message   = document.getElementById('f-message').value.trim();
+
+    if (!firstname || !lastname) { alert('Please enter your full name.'); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Please enter a valid email address.'); return; }
+    if (!service) { alert('Please select a service.'); return; }
+    if (!message) { alert('Please write a message.'); return; }
+
+    DB.insertInquiry({ name: firstname + ' ' + lastname, email, phone, service, message });
+
+    btn.textContent = '✔ Sent!';
+    btn.style.background = '#4caf50';
+    btn.disabled = true;
+    document.getElementById('form-msg').style.display = 'block';
+
+    // reset after 3s
+    setTimeout(() => {
+      btn.textContent = '▸ Send Message';
+      btn.style.background = '';
+      btn.disabled = false;
+      document.getElementById('form-msg').style.display = 'none';
+      document.getElementById('f-firstname').value = '';
+      document.getElementById('f-lastname').value  = '';
+      document.getElementById('f-email').value     = '';
+      document.getElementById('f-phone').value     = '';
+      document.getElementById('f-service').value   = '';
+      document.getElementById('f-message').value   = '';
+    }, 3000);
+  }
+
+  // ─── HONEYCOMB CANVAS ───
+  (function () {
+    const canvas = document.getElementById('honeycomb-canvas');
+    const hero   = document.getElementById('hero');
+
+    function hexPath(ctx, cx, cy, r) {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const angle = Math.PI / 180 * (60 * i - 30);
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+
+    function draw() {
+      const W = hero.offsetWidth;
+      const H = hero.offsetHeight;
+      canvas.width  = W;
+      canvas.height = H;
+
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, W, H);
+
+      const R     = 58;          // hex radius (flat-to-point)
+      const gap   = 4;           // gap between hexagons
+      const r     = R - gap / 2; // drawing radius (slightly smaller for gap)
+      const hexW  = Math.sqrt(3) * R;
+      const hexH  = 2 * R;
+      const colW  = hexW;
+      const rowH  = hexH * 0.75;
+
+      const cols = Math.ceil(W / colW) + 2;
+      const rows = Math.ceil(H / rowH) + 2;
+
+      for (let row = -1; row < rows; row++) {
+        for (let col = -1; col < cols; col++) {
+          const offset = (col % 2 !== 0) ? rowH / 2 : 0;
+          const cx = col * colW + hexW / 2;
+          const cy = row * rowH + offset + hexH / 2;
+
+          // subtle fill
+          hexPath(ctx, cx, cy, r);
+          ctx.fillStyle = 'rgba(245, 161, 0, 0.03)';
+          ctx.fill();
+
+          // stroke — slightly brighter at top-right, fading toward bottom-left
+          const dist = Math.hypot(cx - W * 0.75, cy - H * 0.2) / Math.hypot(W, H);
+          const alpha = Math.max(0.04, 0.18 - dist * 0.22);
+          hexPath(ctx, cx, cy, r);
+          ctx.strokeStyle = `rgba(245, 161, 0, ${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+
+    draw();
+    window.addEventListener('resize', draw);
+  })();
+</script>
+</body>
+</html>
